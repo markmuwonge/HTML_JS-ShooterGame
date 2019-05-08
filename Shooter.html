@@ -1,0 +1,75 @@
+<html>
+	<body onkeydown="move()">
+		<span id='shooter' style="position:absolute; top:400; left:1;">
+			<pre>___|-|___</pre>
+		</span>
+		
+	<body>
+<script>
+
+var shooterLeft=1;
+
+function move()
+{
+	var target = window.document.createElement("span");
+	target.innerHTML = "_____"; 
+	target.style = "position:absolute";
+	target.style.left = 1;
+	target.style.top = 1;
+	document.body.appendChild(target);
+	
+	var targetTimer = window.setInterval(function() {
+				target.style.left = parseInt(target.style.left) + 100;
+				
+				if (parseInt(target.style.left) > 400)
+				{
+					window.clearInterval(shotTimer);
+					document.body.removeChild(target);
+				}
+
+	}, 1000);	
+	
+	if(window.event.keyCode==39) //right
+	{
+		shooterLeft = shooterLeft + 10;
+		
+	}
+	
+	if(window.event.keyCode==37) //left
+	{
+		shooterLeft = shooterLeft - 10;
+	}
+	
+	if (window.event.keyCode==32) //spacebar
+	{
+		var shot = window.document.createElement("span");
+		shot.innerHTML = "*";
+		shot.style = "position:absolute";
+		shot.style.left = parseInt(document.getElementById("shooter").style.left) + 28
+		shot.style.top = document.getElementById("shooter").style.top;
+		document.body.appendChild(shot);  
+		
+		var shotTimer = window.setInterval(function() {
+				shot.style.top = parseInt(shot.style.top) - 5;
+				if (parseInt(shot.style.top) < 10)
+				{
+					window.clearInterval(shotTimer);
+					document.body.removeChild(shot);
+				}
+		}, 70);	
+	}
+	
+	if (shooterLeft > 400)
+	{
+		shooterLeft = 400;
+	}
+	
+	if (shooterLeft < 1)
+	{
+		shooterLeft = 1;
+	}
+	
+	document.getElementById("shooter").style.left = shooterLeft;
+}
+</script>
+</html>
